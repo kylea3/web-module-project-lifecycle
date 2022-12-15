@@ -13,8 +13,8 @@ export default class Form extends React.Component {
     input: evt.target.value
   })
   }
-  onSubmit = () => {
-    
+  onSubmit = (evt) => {
+    evt.preventDefault();
   }
   render() {
     return(
