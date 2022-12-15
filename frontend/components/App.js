@@ -24,6 +24,10 @@ export default class App extends React.Component {
         })
         .catch(err => console.log('nooooo'));
     }
+
+    postTodos = () => {
+      
+    }
     
     componentDidMount() {
       this.getTodos();
@@ -51,6 +55,13 @@ export default class App extends React.Component {
       })
     }
     onSubmit = (name) => {
+      axios.post("http://localhost:9000/api/todos", { name: name})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
       const newTodo = {
         id: Date.now(),
         name: name,
