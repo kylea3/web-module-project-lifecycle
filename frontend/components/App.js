@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import Form from './Form';
 import TodoList from './TodoList'
@@ -9,22 +10,23 @@ export default class App extends React.Component {
     super();
     this.state = {
       input: '',
-      todos: [{
-        "id": "WpD8Q",
-        "name": "laundry",
-        "completed": false
-    },
-    {
-        "id": "vvkIv",
-        "name": "dishes",
-        "completed": false
-    },
-    {
-        "id": "A6vNV",
-        "name": "groceries",
-        "completed": false
-    }]
+      todos: []
     }
+  }
+    getTodos = () => {
+      axios.get('http://localhost:9000/api/todos')
+        .then(res => {
+          console.log(res)
+          this.setState({
+            ...this.state,
+            todos: res.data.data
+          })
+        })
+        .catch(err => console.log('nooooo'));
+    }
+    
+    componentDidMount() {
+      this.getTodos();
     }
     onClear = () => {
       this.setState({
