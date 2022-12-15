@@ -15,6 +15,11 @@ export default class Form extends React.Component {
   }
   onSubmit = (evt) => {
     evt.preventDefault();
+    this.props.submit(this.state.input);
+    this.setState({
+      ...this.state,
+      input: ''
+    })
   }
   render() {
     return(

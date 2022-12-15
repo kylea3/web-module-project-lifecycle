@@ -8,6 +8,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      input: '',
       todos: [{
         "id": "WpD8Q",
         "name": "laundry",
@@ -25,6 +26,14 @@ export default class App extends React.Component {
     }]
     }
     }
+    onClear = () => {
+      this.setState({
+      ...this.state,
+      todos: this.state.todos.filter(todo => {
+        return (todo.completed === false);
+      })
+      })
+    }
     markCompleted = (clickedId) => {
       this.setState({
         ...this.state,
@@ -39,17 +48,28 @@ export default class App extends React.Component {
         })
       })
     }
+    onSubmit = (name) => {
+      const newTodo = {
+        id: Date.now(),
+        name: name,
+        completed: false
+      }
+      this.setState({
+        ...this.state,
+        todos: [...this.state.todos, newTodo]
+      })
+    }
   render() {
     return (
       <>
         <div>
           <h2>Todo List:</h2>
           <TodoList markCompleted={this.markCompleted} todos={this.state.todos}/>
-          <Form />
+          <Form submit={this.onSubmit} />
         </div>
         <br></br>
         <div>
-          <button>Hide Complete</button>
+          <button onClick={this.onClear}>Hide Complete</button>
         </div>
       </>
     )
