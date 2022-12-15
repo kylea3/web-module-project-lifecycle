@@ -25,14 +25,12 @@ export default class App extends React.Component {
         .catch(err => console.log('nooooo'));
     }
 
-    postTodos = () => {
-      
-    }
     
     componentDidMount() {
       this.getTodos();
     }
-    onClear = () => {
+    onClear = (evt) => {
+      evt.preventDefault();
       this.setState({
       ...this.state,
       todos: this.state.todos.filter(todo => {
@@ -41,6 +39,9 @@ export default class App extends React.Component {
       })
     }
     markCompleted = (clickedId) => {
+      axios.patch(`http://localhost:9000/api/todos/${clickedId}`)
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
       this.setState({
         ...this.state,
         todos: this.state.todos.map(todo => {
